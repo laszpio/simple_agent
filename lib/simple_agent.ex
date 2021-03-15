@@ -1,18 +1,18 @@
 defmodule SimpleAgent do
-  @moduledoc """
-  Documentation for `SimpleAgent`.
-  """
+  require Logger
 
-  @doc """
-  Hello world.
+  def register() do
+    Logger.info("Register")
+    {:ok, Jason.encode!(%{response: "Registered!"})}
+  end
 
-  ## Examples
+  def check(_params) do
+    Logger.info("Check")
+    {:ok, Jason.encode!(%{response: "Checked!"})}
+  end
 
-      iex> SimpleAgent.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def receive(_params) do
+    Logger.info("Receive")
+    {:ok, Jason.encode!(%{response: "Received!"})}
   end
 end

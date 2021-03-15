@@ -6,8 +6,13 @@ defmodule SimpleAgent.Application do
 
   def start(_type, _args) do
     children = [
-      {Plug.Cowboy, scheme: :http, plug: SimpleAgent.HelloWorldPlug, options: [port: port()]}
+      Plug.Cowboy.child_spec(
+        scheme: :http,
+        plug: SimpleAgent.Endpoint,
+        options: [port: port()]
+      )
     ]
+
     opts = [strategy: :one_for_one, name: SimpleAgent.Supervisor]
 
     Logger.info("Accepting connections on port 5000")
