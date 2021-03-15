@@ -8,7 +8,5 @@ defmodule SimpleAgent.HelloWorldPlug do
     conn
     |> put_resp_content_type("text/plain")
     |> send_resp(200, "Hello World!\n")
-
-    Logger.info("Hello World!")
   end
 end

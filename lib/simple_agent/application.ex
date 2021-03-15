@@ -6,7 +6,7 @@ defmodule SimpleAgent.Application do
 
   def start(_type, _args) do
     children = [
-      {Plug.Cowboy, scheme: :http, plug: SimpleAgent.HelloWorldPlug, options: [port: 5000]}
+      {Plug.Cowboy, scheme: :http, plug: SimpleAgent.HelloWorldPlug, options: [port: port()]}
     ]
     opts = [strategy: :one_for_one, name: SimpleAgent.Supervisor]
 
@@ -14,4 +14,6 @@ defmodule SimpleAgent.Application do
 
     Supervisor.start_link(children, opts)
   end
+
+  def port, do: Application.get_env(:simple_agent, :port, 5000)
 end
