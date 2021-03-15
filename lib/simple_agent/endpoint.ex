@@ -12,6 +12,7 @@ defmodule SimpleAgent.Endpoint do
 
   post "/" do
     Logger.info(conn.body_params)
+
     with {status, result} <- process_request(conn.body_params),
          {:ok, body} <- Jason.encode(result) do
       send_resp(conn, status, body)

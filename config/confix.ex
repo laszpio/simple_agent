@@ -1,3 +1,3 @@
 use Mix.Config
 
-config :simple_agent, port: 5000
+import_config "#{Mix.env()}.exs"
