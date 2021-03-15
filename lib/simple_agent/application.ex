@@ -15,7 +15,7 @@ defmodule SimpleAgent.Application do
 
     opts = [strategy: :one_for_one, name: SimpleAgent.Supervisor]
 
-    Logger.info("Accepting connections on port 5000")
+    Logger.info("Accepting connections on port #{port()}")
 
     Supervisor.start_link(children, opts)
   end

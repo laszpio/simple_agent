@@ -46,6 +46,6 @@ defmodule SimpleAgentTest do
       |> SimpleAgent.Endpoint.call(@opts)
 
     assert conn.status == 422
-    assert conn.resp_body == Jason.encode!(%{response: "Unknown method"})
+    assert conn.resp_body == Jason.encode!(%{result: "Unknown method"})
   end
 end

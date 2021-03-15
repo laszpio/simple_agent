@@ -14,7 +14,7 @@ defmodule SimpleAgent.Endpoint do
     Logger.info(conn.body_params)
 
     with {status, result} <- process_request(conn.body_params),
-         {:ok, body} <- Jason.encode(result) do
+         {:ok, body} <- Jason.encode(%{result: result}) do
       send_resp(conn, status, body)
     end
   end
@@ -42,6 +42,6 @@ defmodule SimpleAgent.Endpoint do
   end
 
   defp process_request(_) do
-    {422, %{response: "Unknown method"}}
+    {422, "Unknown method"}
   end
 end
