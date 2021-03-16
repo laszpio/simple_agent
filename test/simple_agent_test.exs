@@ -15,6 +15,22 @@ defmodule SimpleAgentTest do
 
       assert conn.status == 200
     end
+
+    test "returns result with register structure" do
+      conn =
+        conn(:post, "/", Jason.encode!(%{method: "register"}))
+        |> put_req_header("content-type", "application/json")
+        |> SimpleAgent.Endpoint.call(@opts)
+
+      %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
+
+      assert result == %{
+        name: "SimpleAgent",
+        display_name: "Simple Elixir Agent",
+        description: "Simple Elixir Agent",
+        default_options: %{}
+      }
+    end
   end
 
   describe "check" do
@@ -26,6 +42,16 @@ defmodule SimpleAgentTest do
 
       assert conn.status == 200
     end
+
+    test "returns result with check structure" do
+      conn =
+        conn(:post, "/", Jason.encode!(%{method: "check", params: %{}}))
+        |> put_req_header("content-type", "application/json")
+        |> SimpleAgent.Endpoint.call(@opts)
+
+      %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
+      assert result == %{errors: [], logs: [], messages: []}
+    end
   end
 
   describe "receive" do
@@ -36,6 +62,16 @@ defmodule SimpleAgentTest do
         |> SimpleAgent.Endpoint.call(@opts)
 
       assert conn.status == 200
+    end
+
+    test "returns result with receive structure" do
+      conn =
+        conn(:post, "/", Jason.encode!(%{method: "receive", params: %{}}))
+        |> put_req_header("content-type", "application/json")
+        |> SimpleAgent.Endpoint.call(@opts)
+
+      %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
+      assert result == %{errors: [], logs: [], messages: [], memory: %{}}
     end
   end
 

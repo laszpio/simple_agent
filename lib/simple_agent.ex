@@ -13,14 +13,14 @@ defmodule SimpleAgent do
   end
 
   def check(_params) do
-    {:ok, empty_result()}
+    {:ok, empty_check()}
   end
 
   def receive(_params) do
-    {:ok, empty_result()}
+    {:ok, empty_receive()}
   end
 
-  defp empty_result do
-    %SimpleAgent.Result{}
-  end
+  defp empty_check, do: %SimpleAgent.Check{}
+
+  defp empty_receive, do: %SimpleAgent.Receive{}
 end
