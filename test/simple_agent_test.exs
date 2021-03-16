@@ -25,18 +25,31 @@ defmodule SimpleAgentTest do
       %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
 
       assert result == %{
-        name: "SimpleAgent",
-        display_name: "Simple Elixir Agent",
-        description: "Simple Elixir Agent",
-        default_options: %{}
-      }
+               name: "SimpleAgent",
+               display_name: "Simple Elixir Agent",
+               description: "Simple Elixir Agent",
+               default_options: %{}
+             }
     end
   end
 
   describe "check" do
+    @check_params %{
+      method: "check",
+      params: %{
+        message: nil,
+        options: %{ option: "value" },
+        memory: %{ key: "value" }
+      },
+      credentials: [
+        %{name: "admin_email", value: "admin@example.com"}
+      ]
+    }
+
+
     test "returns 200" do
       conn =
-        conn(:post, "/", Jason.encode!(%{method: "check", params: %{}}))
+        conn(:post, "/", Jason.encode!(%{method: "check", params: @check_params}))
         |> put_req_header("content-type", "application/json")
         |> SimpleAgent.Endpoint.call(@opts)
 

@@ -12,15 +12,16 @@ defmodule SimpleAgent do
     {:ok, result}
   end
 
-  def check(_params) do
-    {:ok, empty_check()}
+  def check(request) do
+    result = %SimpleAgent.Check{}
+
+    Logger.info(request)
+
+    {:ok, result}
   end
 
-  def receive(_params) do
-    {:ok, empty_receive()}
+  def receive(_request) do
+    result = %SimpleAgent.Receive{}
+    {:ok, result}
   end
-
-  defp empty_check, do: %SimpleAgent.Check{}
-
-  defp empty_receive, do: %SimpleAgent.Receive{}
 end
