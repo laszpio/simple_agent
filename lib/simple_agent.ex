@@ -23,8 +23,11 @@ defmodule SimpleAgent do
     {:ok, result}
   end
 
-  def receive(_request) do
+  def receive(request) do
     result = %SimpleAgent.Receive{}
+              |> Map.put(:logs, ["New message received"])
+              |> Map.put(:memory, get_in(request, [:params, :memory] || %{}))
+
     {:ok, result}
   end
 end
