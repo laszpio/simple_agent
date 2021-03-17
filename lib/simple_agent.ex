@@ -13,9 +13,12 @@ defmodule SimpleAgent do
   end
 
   def check(request) do
-    result = %SimpleAgent.Check{}
+    message = get_in(request, [:params, :memory]) || []
 
-    Logger.info(request)
+    result = %SimpleAgent.Check{}
+             |> Map.put(:logs, ['Check done'])
+             |> Map.put(:errors, ['Sample error'])
+             |> Map.update!(:messages, &(&1 ++ message))
 
     {:ok, result}
   end

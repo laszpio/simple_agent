@@ -63,7 +63,13 @@ defmodule SimpleAgentTest do
         |> SimpleAgent.Endpoint.call(@opts)
 
       %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
-      assert result == %{errors: [], logs: [], messages: []}
+
+      assert result == %{
+        errors: ['Sample error'],
+        logs: ['Check done'],
+        messages: [],
+        memory: %{}
+      }
     end
   end
 
