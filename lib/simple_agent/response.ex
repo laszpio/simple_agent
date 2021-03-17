@@ -1,4 +1,4 @@
-defmodule SimpleAgent.Receive do
+defmodule SimpleAgent.Response do
   @derive Jason.Encoder
   defstruct errors: [],
             logs: [],

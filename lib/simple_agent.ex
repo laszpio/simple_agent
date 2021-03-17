@@ -15,7 +15,7 @@ defmodule SimpleAgent do
   def check(request) do
     message = get_in(request, [:params, :memory]) || []
 
-    result = %SimpleAgent.Check{}
+    result = %SimpleAgent.Response{}
              |> Map.put(:logs, ['Check done'])
              |> Map.put(:errors, ['Sample error'])
              |> Map.update!(:messages, &(&1 ++ message))
@@ -24,7 +24,7 @@ defmodule SimpleAgent do
   end
 
   def receive(request) do
-    result = %SimpleAgent.Receive{}
+    result = %SimpleAgent.Response{}
               |> Map.put(:logs, ["New message received"])
               |> Map.put(:memory, get_in(request, [:params, :memory] || %{}))
 
