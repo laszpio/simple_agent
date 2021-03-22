@@ -5,7 +5,7 @@ defmodule SimpleAgent.Request do
             credentials: []
 
   def from_params(:check, %{options: o, memory: m, credentials: c}) do
-    %__MODULE__{options: o, memory: m, credentials: c}
+    {:ok, %__MODULE__{options: o, memory: m, credentials: c}}
   end
 
   def from_params(:receive, %{message: %{payload: p}, options: o, memory: m, credentials: c}) do
