@@ -17,7 +17,10 @@ defmodule SimpleAgent.Response do
 
   def add(_, k, _), do: raise(ArgumentError, "#{k} must be a binary")
 
-  def validate(%__MODULE__{} = response), do: {:ok, response}
+  def validate(%__MODULE__{errors: e, logs: l, messages: m, memory: memo} = response)
+      when is_list(e) and is_list(l) and is_list(m) and is_map(memo) do
+        {:ok, response}
+      end
 
   def validate(_response), do: :error
 end

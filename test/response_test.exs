@@ -3,6 +3,7 @@ defmodule SimpleAgentResponseTest do
   doctest SimpleAgent.Request
 
   import SimpleAgent.Response
+  alias SimpleAgent.Response
 
   @response %SimpleAgent.Response{}
 
@@ -93,6 +94,43 @@ defmodule SimpleAgentResponseTest do
       assert_raise KeyError, ~r/key :unknown not found in: %SimpleAgent.Response/, fn ->
         add(@response, :unknown, "value")
       end
+    end
+  end
+
+  describe "validate/1" do
+    test "validates empty response" do
+      assert {:ok, @response} == validate(@response)
+    end
+
+    test "returns {:ok, response} when attributes valid" do
+      response = %Response{
+        errors: ["Error 1", "Error 2"],
+        logs: ["Log 1", "Log 2"],
+        messages: ["Message 1", "Message 2"],
+        memory: %{key: "value"}
+      }
+
+      assert {:ok, response} == validate(response)
+    end
+
+    test "returns :error when reponse with invalid errors atributes" do
+      response = %Response{errors: nil}
+      assert :error == validate(response)
+    end
+
+    test "returns :error when reponse with invalid logs" do
+      response = %Response{logs: nil}
+      assert :error == validate(response)
+    end
+
+    test "returns :messages when reponse with invalid messages" do
+      response = %Response{messages: nil}
+      assert :error == validate(response)
+    end
+
+    test "returns :memory when reponse with invalid memory" do
+      response = %Response{messages: nil}
+      assert :error == validate(response)
     end
   end
 end
