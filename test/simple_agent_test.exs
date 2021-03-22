@@ -39,11 +39,11 @@ defmodule SimpleAgentTest do
       params: %{
         message: nil,
         options: %{option: "value"},
-        memory: %{key: "value"}
-      },
-      credentials: [
-        %{name: "admin_email", value: "admin@example.com"}
-      ]
+        memory: %{key: "value"},
+        credentials: [
+          %{name: "admin_email", value: "admin@example.com"}
+        ]
+      }
     }
 
     test "returns 200" do
