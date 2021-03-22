@@ -38,14 +38,13 @@ defmodule SimpleAgentTest do
       method: "check",
       params: %{
         message: nil,
-        options: %{ option: "value" },
-        memory: %{ key: "value" }
+        options: %{option: "value"},
+        memory: %{key: "value"}
       },
       credentials: [
         %{name: "admin_email", value: "admin@example.com"}
       ]
     }
-
 
     test "returns 200" do
       conn =
@@ -65,11 +64,11 @@ defmodule SimpleAgentTest do
       %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
 
       assert result == %{
-        errors: ['Sample error'],
-        logs: ['Check done'],
-        messages: [],
-        memory: %{}
-      }
+               errors: ['Sample error'],
+               logs: ['Check done'],
+               messages: [],
+               memory: %{}
+             }
     end
   end
 
@@ -93,7 +92,6 @@ defmodule SimpleAgentTest do
       }
     }
 
-
     test "returns 200" do
       conn =
         conn(:post, "/", Jason.encode!(%{method: "receive", params: @request_params}))
@@ -110,12 +108,13 @@ defmodule SimpleAgentTest do
         |> SimpleAgent.Endpoint.call(@opts)
 
       %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
+
       assert result == %{
-        errors: [],
-        logs: ["New message received"],
-        messages: [],
-        memory: %{key: "value"}
-      }
+               errors: [],
+               logs: ["New message received"],
+               messages: [],
+               memory: %{key: "value"}
+             }
     end
   end
 
