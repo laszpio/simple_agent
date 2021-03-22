@@ -1,6 +1,6 @@
 defmodule SimpleAgentResponseTest do
   use ExUnit.Case
-  doctest SimpleAgent.Request
+  doctest SimpleAgent.Response
 
   import SimpleAgent.Response
   alias SimpleAgent.Response
