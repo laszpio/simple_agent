@@ -1,6 +1,7 @@
 defmodule SimpleAgent do
   require Logger
 
+  alias SimpleAgent.Request
   alias SimpleAgent.Response
   alias SimpleAgent.Register
 
@@ -17,14 +18,14 @@ defmodule SimpleAgent do
     {:ok, result}
   end
 
-  def check(_request) do
+  def check(%Request{} = _request) do
     %Response{}
     |> add(:logs, "Check done")
     |> add(:errors, "Sample error")
     |> validate
   end
 
-  def receive(_request) do
+  def receive(%Request{} = _request) do
     %Response{}
     |> add(:logs, "Message received")
     |> add(:memory, %{key: "value"})
