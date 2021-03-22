@@ -63,7 +63,7 @@ defmodule SimpleAgentResponseTest do
       assert result.memory == %{first_key: "value", other_key: "other value"}
     end
 
-    test "reaise error when adding non-map memory to response" do
+    test "raises error when adding non-map memory to response" do
       assert_raise ArgumentError, "memory must be a map", fn ->
         add(@response, :memory, nil)
       end
@@ -116,15 +116,24 @@ defmodule SimpleAgentResponseTest do
     test "returns :error when reponse with invalid errors atributes" do
       response = %Response{errors: nil}
       assert :error == validate(response)
+
+      response = %Response{errors: ["Error 1", nil]}
+      assert :error == validate(response)
     end
 
     test "returns :error when reponse with invalid logs" do
       response = %Response{logs: nil}
       assert :error == validate(response)
+
+      response = %Response{errors: ["Log 1", nil]}
+      assert :error == validate(response)
     end
 
     test "returns :messages when reponse with invalid messages" do
       response = %Response{messages: nil}
+      assert :error == validate(response)
+
+      response = %Response{errors: ["Message 1", nil]}
       assert :error == validate(response)
     end
 

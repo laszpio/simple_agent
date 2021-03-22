@@ -19,8 +19,13 @@ defmodule SimpleAgent.Response do
 
   def validate(%__MODULE__{errors: e, logs: l, messages: m, memory: memo} = response)
       when is_list(e) and is_list(l) and is_list(m) and is_map(memo) do
-        {:ok, response}
-      end
+    case Enum.map([e, l, m], &all_binary?/1) |> Enum.all?() do
+      true -> {:ok, response}
+      false -> :error
+    end
+  end
 
   def validate(_response), do: :error
+
+  defp all_binary?(lst), do: Enum.all?(lst, &is_binary/1)
 end
