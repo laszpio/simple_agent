@@ -64,8 +64,8 @@ defmodule SimpleAgentTest do
       %{result: result} = Jason.decode!(conn.resp_body, keys: :atoms!)
 
       assert result == %{
-               errors: ['Sample error'],
-               logs: ['Check done'],
+               errors: ["Sample error"],
+               logs: ["Check done"],
                messages: [],
                memory: %{}
              }
@@ -111,7 +111,7 @@ defmodule SimpleAgentTest do
 
       assert result == %{
                errors: [],
-               logs: ["New message received"],
+               logs: ["Message received"],
                messages: [],
                memory: %{key: "value"}
              }

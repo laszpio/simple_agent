@@ -18,19 +18,16 @@ defmodule SimpleAgent do
   end
 
   def check(request) do
-    message = get_in(request, [:params, :memory]) || []
-
     %Response{}
-    |> Map.put(:logs, ['Check done'])
-    |> Map.put(:errors, ['Sample error'])
-    |> Map.update!(:messages, &(&1 ++ message))
+    |> add(:logs, "Check done")
+    |> add(:errors, "Sample error")
     |> validate
   end
 
   def receive(request) do
     %Response{}
-    |> Map.put(:logs, ["New message received"])
-    |> Map.put(:memory, get_in(request, [:params, :memory] || %{}))
+    |> add(:logs, "Message received")
+    |> Map.put(:memory, %{key: "value"})
     |> validate
   end
 end
