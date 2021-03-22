@@ -17,17 +17,17 @@ defmodule SimpleAgent do
     {:ok, result}
   end
 
-  def check(request) do
+  def check(_request) do
     %Response{}
     |> add(:logs, "Check done")
     |> add(:errors, "Sample error")
     |> validate
   end
 
-  def receive(request) do
+  def receive(_request) do
     %Response{}
     |> add(:logs, "Message received")
-    |> Map.put(:memory, %{key: "value"})
+    |> add(:memory, %{key: "value"})
     |> validate
   end
 end

@@ -5,6 +5,10 @@ defmodule SimpleAgent.Response do
             messages: [],
             memory: %{}
 
+  def add(%__MODULE__{} = response, :memory, v) when is_map(v) do
+    Map.update!(response, :memory, &Map.merge(&1, v))
+  end
+
   def add(%__MODULE__{} = response, k, v) when is_binary(v) do
     Map.update!(response, k, &(&1 ++ [v]))
   end
