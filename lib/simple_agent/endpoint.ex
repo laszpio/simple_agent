@@ -29,14 +29,16 @@ defmodule SimpleAgent.Endpoint do
     end
   end
 
-  defp process_request(%{method: "check", params: params}) do
-    with {:ok, result} <- SimpleAgent.check(params) do
+  defp process_request(%{method: "check"} = params) do
+    with {:ok, params} <- SimpleAgent.Request.from_params(params),
+         {:ok, result} <- SimpleAgent.check(params) do
       {200, result}
     end
   end
 
   defp process_request(%{method: "receive", params: params}) do
-    with {:ok, result} <- SimpleAgent.receive(params) do
+    with {:ok, params} <- SimpleAgent.Request.from_params(params),
+         {:ok, result} <- SimpleAgent.receive(params) do
       {200, result}
     end
   end

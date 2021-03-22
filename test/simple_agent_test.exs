@@ -48,7 +48,7 @@ defmodule SimpleAgentTest do
 
     test "returns 200" do
       conn =
-        conn(:post, "/", Jason.encode!(%{method: "check", params: @check_params}))
+        conn(:post, "/", Jason.encode!(@check_params))
         |> put_req_header("content-type", "application/json")
         |> SimpleAgent.Endpoint.call(@opts)
 
@@ -57,7 +57,7 @@ defmodule SimpleAgentTest do
 
     test "returns result with check structure" do
       conn =
-        conn(:post, "/", Jason.encode!(%{method: "check", params: %{}}))
+        conn(:post, "/", Jason.encode!(@check_params))
         |> put_req_header("content-type", "application/json")
         |> SimpleAgent.Endpoint.call(@opts)
 
