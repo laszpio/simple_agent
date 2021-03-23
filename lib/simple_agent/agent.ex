@@ -1,11 +1,12 @@
 defmodule SimpleAgent.Agent do
   @type request() :: SimpleAgent.Request.t()
+  @type register() :: SimpleAgent.Register.t()
   @type response() :: SimpleAgent.Response.t()
 
   @doc """
   Handles register request
   """
-  @callback handle_register() :: {:ok, %{}}
+  @callback handle_register() :: {:ok, register()}
 
   @doc """
   Handles check request

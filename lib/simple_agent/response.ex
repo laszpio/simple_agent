@@ -1,10 +1,19 @@
 defmodule SimpleAgent.Response do
   @derive Jason.Encoder
+
+  @type t :: %__MODULE__{
+          errors: list,
+          logs: list,
+          messages: list,
+          memory: map
+        }
+
   defstruct errors: [],
             logs: [],
             messages: [],
             memory: %{}
 
+  @spec add(t, atom, map | list | any) :: t | no_return
   def add(%__MODULE__{} = response, :memory, v) when is_map(v) do
     Map.update!(response, :memory, &Map.merge(&1, v))
   end
@@ -17,6 +26,7 @@ defmodule SimpleAgent.Response do
 
   def add(_, k, _), do: raise(ArgumentError, "#{k} must be a binary")
 
+  @spec validate(t) :: {:ok, t} | :error
   def validate(%__MODULE__{errors: e, logs: l, messages: m, memory: memo} = response)
       when is_list(e) and is_list(l) and is_list(m) and is_map(memo) do
     case Enum.map([e, l, m], &all_binary?/1) |> Enum.all?() do

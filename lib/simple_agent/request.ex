@@ -1,4 +1,11 @@
 defmodule SimpleAgent.Request do
+  @type t :: %__MODULE__{
+          message: nil | list,
+          options: map,
+          memory: map,
+          credentials: list
+        }
+
   defstruct message: nil,
             options: %{},
             memory: %{},
