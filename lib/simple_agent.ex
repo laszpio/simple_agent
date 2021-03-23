@@ -7,7 +7,7 @@ defmodule SimpleAgent do
 
   import SimpleAgent.Response
 
-  def register() do
+  def handle_register() do
     result = %Register{
       name: "SimpleAgent",
       display_name: "Simple Elixir Agent",
@@ -18,14 +18,14 @@ defmodule SimpleAgent do
     {:ok, result}
   end
 
-  def check(%Request{} = _request) do
+  def handle_check(%Request{} = _request) do
     %Response{}
     |> add(:logs, "Check done")
     |> add(:errors, "Sample error")
     |> validate
   end
 
-  def receive(%Request{} = _request) do
+  def handle_receive(%Request{} = _request) do
     %Response{}
     |> add(:logs, "Message received")
     |> add(:memory, %{key: "value"})
