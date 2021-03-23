@@ -3,6 +3,9 @@ defmodule SimpleAgent.Endpoint do
 
   use Plug.Router
 
+  import SimpleAgent
+  alias SimpleAgent.Request
+
   plug(Plug.Logger)
   plug(:match)
   plug(Plug.Parsers, parsers: [:json], json_decoder: {Jason, :decode!, [[keys: :atoms]]})
@@ -20,21 +23,21 @@ defmodule SimpleAgent.Endpoint do
   end
 
   defp process_request(%{method: "register"}) do
-    with {:ok, result} <- SimpleAgent.handle_register() do
+    with {:ok, result} <- handle_register() do
       {200, result}
     end
   end
 
   defp process_request(%{method: "check"} = params) do
-    with {:ok, params} <- SimpleAgent.Request.from_params(params),
-         {:ok, result} <- SimpleAgent.handle_check(params) do
+    with {:ok, params} <- Request.from_params(params),
+         {:ok, result} <- handle_check(params) do
       {200, result}
     end
   end
 
   defp process_request(%{method: "receive", params: params}) do
-    with {:ok, params} <- SimpleAgent.Request.from_params(params),
-         {:ok, result} <- SimpleAgent.handle_receive(params) do
+    with {:ok, params} <- Request.from_params(params),
+         {:ok, result} <- handle_receive(params) do
       {200, result}
     end
   end
