@@ -8,11 +8,7 @@ defmodule SimpleAgent.Endpoint do
   plug(Plug.Parsers, parsers: [:json], json_decoder: {Jason, :decode!, [[keys: :atoms]]})
   plug(:dispatch)
 
-  require Logger
-
   post "/" do
-    Logger.info(conn.body_params)
-
     with {status, result} <- process_request(conn.body_params),
          {:ok, body} <- Jason.encode(%{result: result}) do
       send_resp(conn, status, body)

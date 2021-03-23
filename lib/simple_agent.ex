@@ -1,6 +1,4 @@
 defmodule SimpleAgent do
-  require Logger
-
   alias SimpleAgent.Request
   alias SimpleAgent.Response
   alias SimpleAgent.Register
