@@ -1,12 +1,8 @@
 defmodule SimpleAgent do
   @behaviour SimpleAgent.Agent
 
-  alias SimpleAgent.Agent
-  alias SimpleAgent.Request
-  alias SimpleAgent.Response
-  alias SimpleAgent.Register
-
-  import SimpleAgent.Response
+  alias SimpleAgent.{Agent, Request, Response, Register}
+  import Response
 
   @impl Agent
   def handle_register() do
