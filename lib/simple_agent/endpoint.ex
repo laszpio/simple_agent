@@ -4,7 +4,7 @@ defmodule SimpleAgent.Endpoint do
   use Plug.Router
 
   import SimpleAgent
-  alias SimpleAgent.Request
+  import SimpleAgent.Request
 
   plug(Plug.Logger)
   plug(:match)
@@ -29,14 +29,14 @@ defmodule SimpleAgent.Endpoint do
   end
 
   defp process_request(%{method: "check"} = params) do
-    with {:ok, params} <- Request.from_params(params),
+    with {:ok, params} <- from_params(params),
          {:ok, result} <- handle_check(params) do
       {200, result}
     end
   end
 
   defp process_request(%{method: "receive", params: params}) do
-    with {:ok, params} <- Request.from_params(params),
+    with {:ok, params} <- from_params(params),
          {:ok, result} <- handle_receive(params) do
       {200, result}
     end

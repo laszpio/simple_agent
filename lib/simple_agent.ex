@@ -1,10 +1,14 @@
 defmodule SimpleAgent do
+  @behaviour SimpleAgent.Agent
+
+  alias SimpleAgent.Agent
   alias SimpleAgent.Request
   alias SimpleAgent.Response
   alias SimpleAgent.Register
 
   import SimpleAgent.Response
 
+  @impl Agent
   def handle_register() do
     result = %Register{
       name: "SimpleAgent",
@@ -16,6 +20,7 @@ defmodule SimpleAgent do
     {:ok, result}
   end
 
+  @impl Agent
   def handle_check(%Request{} = _request) do
     %Response{}
     |> add(:logs, "Check done")
@@ -23,6 +28,7 @@ defmodule SimpleAgent do
     |> validate
   end
 
+  @impl Agent
   def handle_receive(%Request{} = _request) do
     %Response{}
     |> add(:logs, "Message received")
