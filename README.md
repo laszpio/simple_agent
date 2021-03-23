@@ -1,21 +1,10 @@
-# SimpleAgent
+# ActiveWorkflow Agent Example in Elixir
 
-**TODO: Add description**
+This project implements a simple example agent for [ActiveWorkflow](https://github.com/automaticmode/active_workflow).
+The agent is implemented in Elixir and uses the [remote agent API](https://docs.activeworkflow.org/remote-agent-api).
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `simple_agent` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:simple_agent, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/simple_agent](https://hexdocs.pm/simple_agent).
+This agent doesn't do anything particularly useful but demonstrates some of the
+features of ActiveWorkflow's Remote Agent API. The agent simply records the the
+number of `check` and `receive` calls it sees in memory and returns messages
+with the current count.
 
