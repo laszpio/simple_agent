@@ -23,7 +23,8 @@ defmodule SimpleAgent.MixProject do
   defp deps do
     [
       {:plug_cowboy, "~> 2.0"},
-      {:jason, "~> 1.2"}
+      {:jason, "~> 1.2"},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false}
     ]
   end
 end
